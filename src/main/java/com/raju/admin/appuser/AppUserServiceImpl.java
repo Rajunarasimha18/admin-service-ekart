@@ -179,7 +179,13 @@ public class AppUserServiceImpl implements IMasterCommonServices<AppUserDTO, Lon
 			String pwd = appUserDTO.getPassword() != null ? appUserDTO.getPassword() : appUserDTO.getEmail();
 			String hashPwd = mail.md5Generator(pwd);
 			appUserDTO.setPassword(hashPwd);
-			appUserDTO.setUserName(appUserDTO.getMobile());
+			
+			if (!appUserDTO.getEmail().equals("admin@ekart.com")) {
+				appUserDTO.setUserName(appUserDTO.getMobile());
+			}
+			else {
+				appUserDTO.setUserName("admin@ekart.com");
+			}
 
 			AppUser appUserEntity = modelMapper.map(appUserDTO, AppUser.class);
 
